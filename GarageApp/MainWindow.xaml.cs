@@ -17,21 +17,29 @@ namespace GarageApp
 
         private async void LoginManager(object sender, RoutedEventArgs e)
         {
-            var isValid = await DataSender.AuthRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
-            if (isValid)
+            if (string.IsNullOrWhiteSpace(loginBox.Text) && string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length <= 30 && passBox.Password.Length <= 30)
             {
-                Application.Current.MainWindow = new GarageView();
-                Application.Current.MainWindow.Show();
-                Close();
+                var isValid = await DataSender.AuthRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+                if (isValid)
+                {
+                    Application.Current.MainWindow = new GarageView();
+                    Application.Current.MainWindow.Show();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Вы ввели неверные данные");
+                }
             }
             else
-            {
                 MessageBox.Show("Вы ввели неверные данные");
-            }
         }
         private void RegistationManager(object sender, RoutedEventArgs e)
         {
-            DataSender.PostRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+            if (string.IsNullOrWhiteSpace(loginBox.Text) && string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length <= 30 && passBox.Password.Length <= 30)
+                DataSender.PostRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+            else
+                MessageBox.Show("Вы ввели неверные данные");
         }
     }
 }
