@@ -7,8 +7,15 @@ import android.view.View
 import android.widget.Toast
 import java.io.*
 import android.os.Environment
+import android.text.TextUtils
 import android.util.Log
+import android.widget.TextView
+import java.lang.Exception
 import java.lang.StringBuilder
+import android.widget.EditText
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,57 +27,81 @@ class MainActivity : AppCompatActivity() {
     val DIR_SD = "MyFiles"
     val FILENAME_SD = ""
 
+    private  var contentUnit:TextView? = null
+    private  var positionUnit:TextView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        contentUnit = findViewById<TextView>(R.id.contentUnit)
+        positionUnit = findViewById<TextView>(R.id.positionUnit)
+
     }
 
-    fun Test(view: View) {
-        var myFile = Intent (Intent.ACTION_GET_CONTENT)
+    fun UnitContent(view: View) {
+        var myFile = Intent(Intent.ACTION_GET_CONTENT)
         myFile.type = "*/*"
-
         val mimeTypes = arrayOf("text/plain")
-
-        myFile.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        startActivityForResult(myFile,10)
+        myFile.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(myFile, 10)
     }
-
+    fun UnitPosition(view: View) {
+        var myFile = Intent(Intent.ACTION_GET_CONTENT)
+        myFile.type = "*/*"
+        val mimeTypes = arrayOf("text/plain")
+        myFile.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(myFile, 20)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode == 10){
-            var path = data!!.data!!.path
-
-            val myFile = File(Environment.getExternalStorageDirectory().toString() + "/" + path)
+        var path = data!!.data!!
+        if (requestCode == 10) {
             try {
-                val inputStream = FileInputStream(myFile)
-                /*
-             * Буфферезируем данные из выходного потока файла
-             */
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                /*
-             * Класс для создания строк из последовательностей символов
-             */
-                val stringBuilder = StringBuilder()
-                var line: String?
-                try {
-                    /*
-                 * Производим построчное считывание данных из файла в конструктор строки,
-                 * Псоле того, как данные закончились, производим вывод текста в TextView
-                 */
-                    while (bufferedReader.readLine().also { line = it } != null) {
-                        stringBuilder.append(line)
-                    }
-                    Toast.makeText(this, stringBuilder, Toast.LENGTH_SHORT).show()
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                val inputStream = contentResolver.openInputStream(path)
+                val lines: MutableList<String?> = ArrayList()
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                var line = reader.readLine()
+                while (line != null) {
+                    lines.add(line)
+                    line = reader.readLine()
                 }
-            } catch (e: FileNotFoundException) {
+                contentUnit!!.text =   TextUtils.join("\n", lines)
+                Toast.makeText(
+                    this,
+                    TextUtils.join("\n", lines),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
         }
 
+        if(requestCode == 20)
+        {
+
+            try {
+                val inputStream = contentResolver.openInputStream(path)
+                val lines: MutableList<String?> = ArrayList()
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                var line = reader.readLine()
+                while (line != null) {
+                    lines.add(line)
+                    line = reader.readLine()
+                }
+                positionUnit!!.text =   TextUtils.join("\n", lines)
+                Toast.makeText(
+                    this,
+                    TextUtils.join("\n", lines),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
     }
+
 }
