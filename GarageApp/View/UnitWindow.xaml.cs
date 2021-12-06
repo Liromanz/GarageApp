@@ -28,6 +28,13 @@ namespace GarageApp.View
 
         private void SaveData(object sender, RoutedEventArgs e)
         {
+            var message = Validation();
+            if (message != "")
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
             untData = new Units
             {
                 Width = Convert.ToInt32(widthBox.Text),
@@ -36,6 +43,14 @@ namespace GarageApp.View
             };
             DialogResult = true;
             Close();
+        }
+        private string Validation()
+        {
+            if (widthBox.Text == "" || heightBox.Text == "" || lenghtBox.Text == "")
+                return "Не все поля заполнены";
+            if (!Double.TryParse(widthBox.Text, out _) || !Double.TryParse(heightBox.Text, out _) || !Double.TryParse(lenghtBox.Text, out _))
+                return  "Не все поля являются числами";
+            return "";
         }
     }
 }
