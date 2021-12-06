@@ -31,7 +31,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Button Content="Экспортировать"  Background="#FFF74D44" Foreground="White" Click="DeleteUnit"/>
+                <Button Content="Экспортировать"  Background="#FFF74D44" Foreground="White" Click="ExportUnits"/>
                 <Button Content="Добавить"  Background="#FFF74D44" Foreground="White" Click="AddUnit" />
                 <Button Content="Изменить"  Background="#FFF74D44" Foreground="White" Click="EditUnit"/>
                 <Button Content="Удалить"  Background="#FFF74D44" Foreground="White" Click="DeleteUnit"/>
