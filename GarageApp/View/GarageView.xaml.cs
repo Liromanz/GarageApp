@@ -43,10 +43,11 @@ namespace GarageApp.View
             for (int i = 0; i < helixViewPort.Items.Count; i++)
                 helixViewPort.Items.RemoveAt(i);
             garageListVIew.Items.Clear();
-            foreach (var unit in _garageProperty)
+            var propertys = SceneCalculate();
+            for (int i = 0; i < _garageProperty.Count; i++)
             {
-                garageListVIew.Items.Add(unit.GetName());
-                helixViewPort.Items.Add(UnitsController.CreateNewBox(unit.Width, unit.Height, unit.Length, 0, 0, unit.Height / 2));
+                garageListVIew.Items.Add(_garageProperty[i].GetName());
+                helixViewPort.Items.Add(UnitsController.CreateNewBox(_garageProperty[i].Width, _garageProperty[i].Height, _garageProperty[i].Length, propertys[i].startX, propertys[i].startY, _garageProperty[i].Height / 2));
             }
 
         }
@@ -166,6 +167,63 @@ namespace GarageApp.View
                     tw.WriteLine($"{((BoxVisual3D)helixViewPort.Items[i]).Width}, {((BoxVisual3D)helixViewPort.Items[i]).Height}, {((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
+        
+        
+        }
+
+        private CalculateUnit[] SceneCalculate()
+        {
+
+            CalculateUnit[] units = new CalculateUnit[_garageProperty.Count];
+            for (int i = 0;i < _garageProperty.Count; i++)
+            {
+                CalculateUnit unit = new CalculateUnit();
+                unit.id = i+1;
+                unit.width = (int)Math.Round(_garageProperty[i].Width);
+                unit.height = (int)Math.Round(_garageProperty[i].Height);
+                units[i] = unit;
+            }
+
+            int[,] comnate = new int[(int)Math.Round(garagePlace.Width), (int)Math.Round(garagePlace.Length)];
+
+            if (units.Length > 1)
+                for (int x = 0; x < units.Length; x++)
+                {
+                    if (x == 0)
+                    {
+                        units[x].startX = units[x].startX = 0;
+                        units[x].startY = units[x].startY = 0;
+                    }
+                    else
+                    {
+                        units[x].startY = units[x - 1].endY;
+                        units[x].startX = 0;
+                    }
+
+                }
+
+            var maxUnitX = 0;
+            var maxUnitY = 0;
+            var maxEndPointX = 0;
+
+            foreach (var unit in units)
+            {
+                maxEndPointX = maxEndPointX < unit.endX ? unit.endX : maxEndPointX;
+                maxUnitX += unit.height;
+                maxUnitY += unit.width;
+            }
+
+            var id = units.Length - 1;
+
+            while ((int)Math.Round(garagePlace.Width) < maxUnitY)
+            {
+                maxUnitY -= units[id].width;
+                units[id].startY = 0;
+                units[id].startX = maxEndPointX;
+                --id;
+            }
+
+            return units;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace GarageApp
                     GarageView garageView = new GarageView();
                     GlobalVariables.UserID = isValid.Id.Value;
                     Application.Current.MainWindow = new GarageView();
+                   
                     Application.Current.MainWindow.Show();
                     Close();
                 }
