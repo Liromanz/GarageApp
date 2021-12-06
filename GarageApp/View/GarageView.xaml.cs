@@ -47,7 +47,7 @@ namespace GarageApp.View
             for (int i = 0; i < _garageProperty.Count; i++)
             {
                 garageListVIew.Items.Add(_garageProperty[i].GetName());
-                helixViewPort.Items.Add(UnitsController.CreateNewBox(_garageProperty[i].Width, _garageProperty[i].Height, _garageProperty[i].Length, propertys[i].startX, propertys[i].startY, _garageProperty[i].Height / 2));
+                helixViewPort.Items.Add(UnitsController.CreateNewBox(_garageProperty[i].Width, _garageProperty[i].Height, _garageProperty[i].Length, propertys[i].startX+(_garageProperty[i].Length/2), propertys[i].startY+(_garageProperty[i].Width / 2), _garageProperty[i].Height / 2));
             }
 
         }
@@ -151,7 +151,7 @@ namespace GarageApp.View
 
         private void ExportUnits(object sender, RoutedEventArgs e)
         {
-            using (var tw = File.CreateText(@"C:\Users\User\Desktop\output.txt"))
+            using (var tw = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\output.txt"))
             {
                 for (int i = 0; i < helixViewPort.Items.Count; i++)
                 {
@@ -159,15 +159,14 @@ namespace GarageApp.View
                     tw.WriteLine($"{transform.OffsetX}, {transform.OffsetY}, {transform.OffsetZ}, {transform.OffsetX + ((BoxVisual3D)helixViewPort.Items[i]).Width}, {transform.OffsetY + ((BoxVisual3D)helixViewPort.Items[i]).Height}, {transform.OffsetZ + ((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
-            using (var tw = File.CreateText(@"C:\Users\User\Desktop\outputsize.txt"))
+            using (var tw = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\outputsize.txt"))
             {
                 for (int i = 0; i < helixViewPort.Items.Count; i++)
                 {
-                    var transform = ((BoxVisual3D)helixViewPort.Items[i]).GetTransform();
                     tw.WriteLine($"{((BoxVisual3D)helixViewPort.Items[i]).Width}, {((BoxVisual3D)helixViewPort.Items[i]).Height}, {((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
-               
+            MessageBox.Show("Два текстовых файла находятся на рабочем столе - output и outputsize");
         }
 
         private CalculateUnit[] SceneCalculate()
