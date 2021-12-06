@@ -167,8 +167,7 @@ namespace GarageApp.View
                     tw.WriteLine($"{((BoxVisual3D)helixViewPort.Items[i]).Width}, {((BoxVisual3D)helixViewPort.Items[i]).Height}, {((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
-        
-        
+               
         }
 
         private CalculateUnit[] SceneCalculate()
