@@ -158,6 +158,14 @@ namespace GarageApp.View
                     tw.WriteLine($"{transform.OffsetX}, {transform.OffsetY}, {transform.OffsetZ}, {transform.OffsetX + ((BoxVisual3D)helixViewPort.Items[i]).Width}, {transform.OffsetY + ((BoxVisual3D)helixViewPort.Items[i]).Height}, {transform.OffsetZ + ((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
+            using (var tw = File.CreateText(@"C:\Users\User\Desktop\outputsize.txt"))
+            {
+                for (int i = 0; i < helixViewPort.Items.Count; i++)
+                {
+                    var transform = ((BoxVisual3D)helixViewPort.Items[i]).GetTransform();
+                    tw.WriteLine($"{((BoxVisual3D)helixViewPort.Items[i]).Width}, {((BoxVisual3D)helixViewPort.Items[i]).Height}, {((BoxVisual3D)helixViewPort.Items[i]).Length}");
+                }
+            }
         }
     }
 }
