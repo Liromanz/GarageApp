@@ -47,7 +47,7 @@ namespace GarageApp.View
             for (int i = 0; i < _garageProperty.Count; i++)
             {
                 garageListVIew.Items.Add(_garageProperty[i].GetName());
-                helixViewPort.Items.Add(UnitsController.CreateNewBox(_garageProperty[i].Width, _garageProperty[i].Height, _garageProperty[i].Length, propertys[i].startX+(_garageProperty[i].Length/2), propertys[i].startY+(_garageProperty[i].Width / 2), _garageProperty[i].Height / 2));
+                helixViewPort.Items.Add(UnitsController.CreateNewBox(_garageProperty[i].Width, _garageProperty[i].Height, _garageProperty[i].Length, propertys[i].startX+ (_garageProperty[i].Length/2), propertys[i].startY+(_garageProperty[i].Width / 2), _garageProperty[i].Height / 2));
             }
 
         }
@@ -177,12 +177,10 @@ namespace GarageApp.View
             {
                 CalculateUnit unit = new CalculateUnit();
                 unit.id = i+1;
-                unit.width = (int)Math.Round(_garageProperty[i].Width);
-                unit.height = (int)Math.Round(_garageProperty[i].Height);
+                unit.width = (int)Math.Round(_garageProperty[i].Length);
+                unit.height = (int)Math.Round(_garageProperty[i].Win);
                 units[i] = unit;
             }
-
-            int[,] comnate = new int[(int)Math.Round(garagePlace.Width), (int)Math.Round(garagePlace.Length)];
 
             if (units.Length > 1)
                 for (int x = 0; x < units.Length; x++)
