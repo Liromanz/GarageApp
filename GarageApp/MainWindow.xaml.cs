@@ -23,10 +23,8 @@ namespace GarageApp
                 Users isValid = await ApiConnector.GetUser<object>(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
                 if (isValid !=null && isValid.Id !=null)
                 {
-                    GarageView garageView = new GarageView();
                     GlobalVariables.UserID = isValid.Id.Value;
                     Application.Current.MainWindow = new GarageView();
-                   
                     Application.Current.MainWindow.Show();
                     Close();
                 }
