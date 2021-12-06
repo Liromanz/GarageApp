@@ -178,7 +178,7 @@ namespace GarageApp.View
                 CalculateUnit unit = new CalculateUnit();
                 unit.id = i+1;
                 unit.width = (int)Math.Round(_garageProperty[i].Length);
-                unit.height = (int)Math.Round(_garageProperty[i].Win);
+                unit.height = (int)Math.Round(_garageProperty[i].Width);
                 units[i] = unit;
             }
 
