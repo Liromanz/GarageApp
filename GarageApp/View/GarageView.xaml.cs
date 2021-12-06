@@ -196,7 +196,6 @@ namespace GarageApp.View
                     else
                     {
                         units[x].startY = units[x - 1].endY;
-                        units[x].startX = 0;
                     }
 
                 }
