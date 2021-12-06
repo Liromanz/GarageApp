@@ -46,7 +46,7 @@ namespace GarageApp.View
             foreach (var unit in _garageProperty)
             {
                 garageListVIew.Items.Add(unit.GetName());
-                helixViewPort.Items.Add(UnitsController.CreateNewBox(unit.Width, unit.Height, unit.Length, -20, -20, unit.Height / 2));
+                helixViewPort.Items.Add(UnitsController.CreateNewBox(unit.Width, unit.Height, unit.Length, 0, 0, unit.Height / 2));
             }
 
         }
