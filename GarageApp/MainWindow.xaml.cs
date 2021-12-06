@@ -1,4 +1,5 @@
 ﻿using GarageApp.Data;
+using GarageApp.Global;
 using GarageApp.Model;
 using GarageApp.View;
 using System.Windows;
@@ -19,9 +20,11 @@ namespace GarageApp
         {
             if (!string.IsNullOrWhiteSpace(loginBox.Text) && !string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length !<= 30 && passBox.Password.Length !<= 30)
             {
-                Users isValid =(Users) await ApiConnector.GetUser<object>(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+                Users isValid = await ApiConnector.GetUser<object>(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
                 if (isValid !=null && isValid.Id !=null)
                 {
+                    GarageView garageView = new GarageView();
+                    GlobalVariables.UserID = isValid.Id.Value;
                     Application.Current.MainWindow = new GarageView();
                     Application.Current.MainWindow.Show();
                     Close();

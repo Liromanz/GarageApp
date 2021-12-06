@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GarageApp.Data
 {
-    internal class ApiConnector : DataSender
+    public class ApiConnector : DataSender
     {
         public static async Task<ObservableCollection<T>> GetAll<T>(string tableName)
         {

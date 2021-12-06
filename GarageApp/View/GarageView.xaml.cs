@@ -16,6 +16,9 @@ using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using GarageApp.Model;
 using System.IO;
+using GarageApp.Global;
+using GarageApp.Data;
+using System.Collections.ObjectModel;
 
 namespace GarageApp.View
 {
@@ -24,20 +27,29 @@ namespace GarageApp.View
     /// </summary>
     public partial class GarageView : Window
     {
-        private Units _garageProperty { get; set; }
+        private ObservableCollection<Units> _garageProperty { get; set; }
         private int _lastSelectedItemIndex { get; set; }
         public GarageView()
         {
             InitializeComponent();
-            _garageProperty = new Units
-            {
-                Width = 500,
-                Height = 300,
-                Lenght = 300
-            };
+            RefreshList();
             _lastSelectedItemIndex = -1;
         }
 
+        private async void RefreshList()
+        {
+            _garageProperty = await ApiConnector.GetAll<Units>("Units");
+            _garageProperty = new ObservableCollection<Units>(_garageProperty.Where(x => x.UserID == GlobalVariables.UserID));
+            for (int i = 0; i < helixViewPort.Items.Count; i++)
+                helixViewPort.Items.RemoveAt(i);
+            garageListVIew.Items.Clear();
+            foreach (var unit in _garageProperty)
+            {
+                garageListVIew.Items.Add(unit.GetName());
+                helixViewPort.Items.Add(UnitsController.CreateNewBox(unit.Width, unit.Height, unit.Length, -20, -20, -20));
+            }
+
+        }
 
         private void ReturnToLogin(object sender, RoutedEventArgs e)
         {
@@ -46,18 +58,18 @@ namespace GarageApp.View
             Close();
         }
 
-        private void AddUnit(object sender, RoutedEventArgs e)
+        private async void AddUnit(object sender, RoutedEventArgs e)
         {
             var unitWindow = new UnitWindow();
             var result = unitWindow.ShowDialog();
             if (result != null && result == true)
             {
-                garageListVIew.Items.Add(unitWindow.untData.GetName());
-                helixViewPort.Items.Add(UnitsController.CreateNewBox(unitWindow.untData.Width, unitWindow.untData.Height, unitWindow.untData.Lenght, -20, -20, -20)); //todo: вместо -20 данные пахомуса
+                await DataSender.PostRequest(nameof(Units), unitWindow.untData);
+                RefreshList();
             }
         }
 
-        private void EditUnit(object sender, RoutedEventArgs e)
+        private async void EditUnit(object sender, RoutedEventArgs e)
         {
             if (garageListVIew.SelectedIndex != -1)
             {
@@ -68,10 +80,9 @@ namespace GarageApp.View
                 var result = unitWindow.ShowDialog();
                 if (result != null && result == true)
                 {
-                    helixViewPort.Items.RemoveAt(garageListVIew.SelectedIndex);
-                    garageListVIew.Items.RemoveAt(garageListVIew.SelectedIndex);
-                    helixViewPort.Items.Add(UnitsController.CreateNewBox(unitWindow.untData.Width, unitWindow.untData.Height, unitWindow.untData.Lenght, -20, -20, -20)); //todo: вместо -20 данные пахомуса
-                    garageListVIew.Items.Add(unitWindow.untData.GetName());
+                    await DataSender.DeleteRequest(nameof(Units), _garageProperty[garageListVIew.SelectedIndex].Id.Value);
+                    await DataSender.PostRequest(nameof(Units), unitWindow.untData);
+                    RefreshList();
                     garageListVIew.SelectedIndex = garageListVIew.Items.Count - 1;
                 }
             }
@@ -82,15 +93,16 @@ namespace GarageApp.View
             };
         }
 
-        private void DeleteUnit(object sender, RoutedEventArgs e)
+        private async void DeleteUnit(object sender, RoutedEventArgs e)
         {
             if (garageListVIew.SelectedIndex != -1)
             {
                 var messageBox = MessageBox.Show("Вы точно хотите удалить выбранный юнит?", "Удаление", MessageBoxButton.YesNo);
                 if (messageBox == MessageBoxResult.Yes)
                 {
+                    await DataSender.DeleteRequest(nameof(Units), _garageProperty[garageListVIew.SelectedIndex].Id.Value);
                     helixViewPort.Items.RemoveAt(garageListVIew.SelectedIndex);
-                    garageListVIew.Items.RemoveAt(garageListVIew.SelectedIndex);
+                    RefreshList();
                 }
             }
             else
@@ -102,17 +114,26 @@ namespace GarageApp.View
 
         private void EditGarage(object sender, RoutedEventArgs e)
         {
-            var unitWindow = new UnitWindow();
-            unitWindow.widthBox.Text = _garageProperty.Width.ToString();
-            unitWindow.lenghtBox.Text = _garageProperty.Lenght.ToString();
-            unitWindow.heightBox.Text = _garageProperty.Height.ToString();
-            var result = unitWindow.ShowDialog();
-            if (result != null && result == true)
+            if (garageListVIew.SelectedIndex != -1)
             {
-                _garageProperty = unitWindow.untData;
-                garagePlace.Width = unitWindow.untData.Width;
-                garagePlace.Length = unitWindow.untData.Lenght;
+                var unitWindow = new UnitWindow();
+                unitWindow.widthBox.Text = _garageProperty[garageListVIew.SelectedIndex].Width.ToString();
+                unitWindow.lenghtBox.Text = _garageProperty[garageListVIew.SelectedIndex].Length.ToString();
+                unitWindow.heightBox.Text = _garageProperty[garageListVIew.SelectedIndex].Height.ToString();
+                var result = unitWindow.ShowDialog();
+                if (result != null && result == true)
+                {
+                    _garageProperty[garageListVIew.SelectedIndex] = unitWindow.untData;
+                    garagePlace.Width = unitWindow.untData.Width;
+                    garagePlace.Length = unitWindow.untData.Length;
+                }
+
             }
+            else
+            {
+                MessageBox.Show("Не выбран ни один элемент");
+                return;
+            };
         }
 
         private void ItemSelected(object sender, SelectionChangedEventArgs e)
@@ -134,7 +155,7 @@ namespace GarageApp.View
                 for (int i = 0; i < helixViewPort.Items.Count; i++)
                 {
                     var transform = ((BoxVisual3D)helixViewPort.Items[i]).GetTransform();
-                    tw.WriteLine($"{transform.OffsetX}, {transform.OffsetY}, {transform.OffsetZ}, {transform.OffsetX+((BoxVisual3D)helixViewPort.Items[i]).Width}, {transform.OffsetY + ((BoxVisual3D)helixViewPort.Items[i]).Height}, {transform.OffsetZ + ((BoxVisual3D)helixViewPort.Items[i]).Length}");
+                    tw.WriteLine($"{transform.OffsetX}, {transform.OffsetY}, {transform.OffsetZ}, {transform.OffsetX + ((BoxVisual3D)helixViewPort.Items[i]).Width}, {transform.OffsetY + ((BoxVisual3D)helixViewPort.Items[i]).Height}, {transform.OffsetZ + ((BoxVisual3D)helixViewPort.Items[i]).Length}");
                 }
             }
         }

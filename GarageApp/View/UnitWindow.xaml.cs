@@ -1,4 +1,5 @@
-﻿using GarageApp.Model;
+﻿using GarageApp.Global;
+using GarageApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace GarageApp.View
     /// </summary>
     public partial class UnitWindow : Window
     {
+        public int? Id { get; set; }   
         public Units untData { get; set; }
         public UnitWindow()
         {
@@ -39,7 +41,8 @@ namespace GarageApp.View
             {
                 Width = Convert.ToInt32(widthBox.Text),
                 Height = Convert.ToInt32(heightBox.Text),
-                Lenght = Convert.ToInt32(lenghtBox.Text)
+                Length = Convert.ToInt32(lenghtBox.Text),
+                UserID = GlobalVariables.UserID
             };
             
             DialogResult = true;

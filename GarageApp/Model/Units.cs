@@ -16,7 +16,7 @@ namespace GarageApp.Model
         /// <summary>
         /// Длина
         /// </summary>
-        public double Lenght { get; set; }
+        public double Length { get; set; }
         /// <summary>
         /// Высота
         /// </summary>
@@ -24,8 +24,8 @@ namespace GarageApp.Model
         /// <summary>
         /// Пользователь
         /// </summary>
-        public int User_ID { get; set; }
+        public int UserID { get; set; }
 
-        public string GetName() => $"Ширина: {Width}, Длина: {Lenght}, Высота: {Height}";
+        public string GetName() => $"Ширина: {Width}, Длина: {Length}, Высота: {Height}";
     }
 }

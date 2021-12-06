@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace GarageApp.Data
 {
-    internal class DataSender
+    public class DataSender
     {
         private const string url = "https://wsrexampleapi.azurewebsites.net/api";
 
