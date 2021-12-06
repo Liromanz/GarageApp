@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GarageApp.View" xmlns:HelixToolkit="http://helix-toolkit.org/wpf"
         mc:Ignorable="d"
-        Title="GarageView" Height="450" Width="800" Background="#FF191925"
+        Title="Главный экран" Height="450" Width="800" Background="#FF191925"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
