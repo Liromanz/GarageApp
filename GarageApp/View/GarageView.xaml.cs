@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using GarageApp.Model;
 
 namespace GarageApp.View
 {
@@ -22,9 +23,16 @@ namespace GarageApp.View
     /// </summary>
     public partial class GarageView : Window
     {
+        private Units garageProperty { get; set; }
         public GarageView()
         {
             InitializeComponent();
+            garageProperty = new Units
+            {
+                Width = 500,
+                Height = 300,
+                Lenght = 300
+            };
         }
        
 
@@ -41,6 +49,7 @@ namespace GarageApp.View
             var result = unitWindow.ShowDialog();
             if (result != null && result == true)
             {
+                garageListVIew.Items.Add(unitWindow.untData.GetName());
                 helixViewPort.Items.Add(UnitsController.CreateNewBox(unitWindow.untData.Width, unitWindow.untData.Height, unitWindow.untData.Lenght, -20, -20, -20)); //todo: вместо -20 данные пахомуса
             }
         }
@@ -59,7 +68,22 @@ namespace GarageApp.View
             var messageBox =  MessageBox.Show("Вы точно хотите удалить выбранный юнит?", "Удаление",  MessageBoxButton.YesNo);
             if (messageBox == MessageBoxResult.Yes)
             {
-               var a = GarageApp.Controllers.UnitsController.CreateNewBox(1,1,1,1,1,1);
+
+            }
+        }
+
+        private void EditGarage(object sender, RoutedEventArgs e)
+        {
+            var unitWindow = new UnitWindow();
+            unitWindow.widthBox.Text = garageProperty.Width.ToString();
+            unitWindow.lenghtBox.Text = garageProperty.Lenght.ToString();
+            unitWindow.heightBox.Text = garageProperty.Height.ToString();
+            var result = unitWindow.ShowDialog();
+            if (result != null && result == true)
+            {
+                garageProperty = unitWindow.untData;
+                garagePlace.Width = unitWindow.untData.Width;
+                garagePlace.Length = unitWindow.untData.Lenght;
             }
         }
     }

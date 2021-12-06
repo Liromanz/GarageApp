@@ -20,17 +20,10 @@
             
             <HelixToolkit:HelixViewport3D x:Name="helixViewPort" ZoomExtentsWhenLoaded="True" ChangeFieldOfViewCursor="ScrollNS" PanCursor="Hand" RotateCursor="SizeAll" ZoomCursor="SizeNS" ZoomRectangleCursor="ScrollSE" >
                 <HelixToolkit:SunLight/>
-                <HelixToolkit:GridLinesVisual3D x:Name="garagePlace" Width="100" Length="100" MinorDistance="5" MajorDistance="5" Thickness="0.1"/>
-                <HelixToolkit:BoxVisual3D Width="10" Height="40" Length="70" Fill="#FFD0D0D0">
-                    <HelixToolkit:BoxVisual3D.Transform>
-                        <Transform3DGroup>
-                            <TranslateTransform3D OffsetX="60" OffsetY="4" OffsetZ="20"/>
-                        </Transform3DGroup>
-                    </HelixToolkit:BoxVisual3D.Transform>
-                </HelixToolkit:BoxVisual3D>
+                <HelixToolkit:GridLinesVisual3D x:Name="garagePlace" Width="500" Length="300" MinorDistance="10" MajorDistance="10" Thickness="0.5"/>
             </HelixToolkit:HelixViewport3D>
           
-            <Button Content="Настроить гараж" Grid.Row="21" Background="#FFF74D44" Foreground="White" Click="ReturnToLogin"/>
+            <Button Content="Настроить гараж" Grid.Row="21" Background="#FFF74D44" Foreground="White" Click="EditGarage"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

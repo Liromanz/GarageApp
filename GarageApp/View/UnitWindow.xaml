@@ -7,16 +7,16 @@
         mc:Ignorable="d" Title="Настройки объекта"
         Height="200" Width="300" Background="#FF181824" 
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="20 0 20 0">
+    <Grid Margin="20 0 20 20">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Настройки объекта" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
         <TextBlock Text="Ширина" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
