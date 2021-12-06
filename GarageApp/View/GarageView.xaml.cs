@@ -58,21 +58,45 @@ namespace GarageApp.View
 
         private void EditUnit(object sender, RoutedEventArgs e)
         {
-            var unitWindow = new UnitWindow();
-            unitWindow.widthBox.Text = 111.ToString();
-            unitWindow.lenghtBox.Text = 222.ToString();
-            unitWindow.heightBox.Text = 333.ToString();
-            unitWindow.ShowDialog();
+            if (garageListVIew.SelectedIndex != -1)
+            {
+                var unitWindow = new UnitWindow();
+                unitWindow.widthBox.Text = ((BoxVisual3D)helixViewPort.Items[garageListVIew.SelectedIndex]).Width.ToString();
+                unitWindow.lenghtBox.Text = ((BoxVisual3D)helixViewPort.Items[garageListVIew.SelectedIndex]).Length.ToString();
+                unitWindow.heightBox.Text = ((BoxVisual3D)helixViewPort.Items[garageListVIew.SelectedIndex]).Height.ToString();
+                var result = unitWindow.ShowDialog();
+                if (result != null && result == true)
+                {
+                    helixViewPort.Items.RemoveAt(garageListVIew.SelectedIndex);
+                    garageListVIew.Items.RemoveAt(garageListVIew.SelectedIndex);
+                    helixViewPort.Items.Add(UnitsController.CreateNewBox(unitWindow.untData.Width, unitWindow.untData.Height, unitWindow.untData.Lenght, -20, -20, -20)); //todo: вместо -20 данные пахомуса
+                    garageListVIew.Items.Add(unitWindow.untData.GetName());
+                    garageListVIew.SelectedIndex = garageListVIew.Items.Count - 1;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не выбран ни один элемент");
+                return;
+            };
         }
 
         private void DeleteUnit(object sender, RoutedEventArgs e)
         {
-            var messageBox = MessageBox.Show("Вы точно хотите удалить выбранный юнит?", "Удаление", MessageBoxButton.YesNo);
-            if (messageBox == MessageBoxResult.Yes)
+            if (garageListVIew.SelectedIndex != -1)
             {
-                helixViewPort.Items.RemoveAt(garageListVIew.SelectedIndex);
-                garageListVIew.Items.RemoveAt(garageListVIew.SelectedIndex);
+                var messageBox = MessageBox.Show("Вы точно хотите удалить выбранный юнит?", "Удаление", MessageBoxButton.YesNo);
+                if (messageBox == MessageBoxResult.Yes)
+                {
+                    helixViewPort.Items.RemoveAt(garageListVIew.SelectedIndex);
+                    garageListVIew.Items.RemoveAt(garageListVIew.SelectedIndex);
+                }
             }
+            else
+            {
+                MessageBox.Show("Не выбран ни один элемент");
+                return;
+            };
         }
 
         private void EditGarage(object sender, RoutedEventArgs e)
