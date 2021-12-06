@@ -17,10 +17,10 @@ namespace GarageApp
 
         private async void LoginManager(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(loginBox.Text) && string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length <= 30 && passBox.Password.Length <= 30)
+            if (!string.IsNullOrWhiteSpace(loginBox.Text) && !string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length !<= 30 && passBox.Password.Length !<= 30)
             {
-                var isValid = await DataSender.AuthRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
-                if (isValid)
+                Users isValid =(Users) await ApiConnector.GetUser<object>(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+                if (isValid !=null && isValid.Id !=null)
                 {
                     Application.Current.MainWindow = new GarageView();
                     Application.Current.MainWindow.Show();
@@ -36,7 +36,7 @@ namespace GarageApp
         }
         private void RegistationManager(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(loginBox.Text) && string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length <= 30 && passBox.Password.Length <= 30)
+            if (!string.IsNullOrWhiteSpace(loginBox.Text) && !string.IsNullOrWhiteSpace(passBox.Password) && loginBox.Text.Length !<= 30 && passBox.Password.Length !<= 30)
                 DataSender.PostRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
             else
                 MessageBox.Show("Вы ввели неверные данные");

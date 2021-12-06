@@ -41,6 +41,7 @@ namespace GarageApp.View
                 Height = Convert.ToInt32(heightBox.Text),
                 Lenght = Convert.ToInt32(lenghtBox.Text)
             };
+            
             DialogResult = true;
             Close();
         }

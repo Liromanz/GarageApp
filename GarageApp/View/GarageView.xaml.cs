@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using GarageApp.Model;
+using GarageApp.Data;
 
 namespace GarageApp.View
 {

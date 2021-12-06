@@ -30,7 +30,7 @@ namespace GarageApp.Data
             }
         }
 
-        public static async Task<bool> AuthRequest(string tableName, object value)
+        public static async Task<string> AuthRequest(string tableName, object value)
         {
             try
             {
@@ -39,12 +39,12 @@ namespace GarageApp.Data
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync($"{url}/{tableName}/auth", stringContent);
                 response.EnsureSuccessStatusCode();
-                return true;
+                return await response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return false;
+                return null;
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GarageApp.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,11 @@ namespace GarageApp.Data
         {
             string responseBody = await GetRequest(tableName);
             return (ObservableCollection<T>)JsonConvert.DeserializeObject(responseBody, typeof(ObservableCollection<T>));
+        }
+        public static async Task<Users> GetUser<T>(string tableName, object value)
+        {
+            string responseBody = await AuthRequest(tableName, value);
+            return (Users)JsonConvert.DeserializeObject(responseBody, typeof(Users));
         }
     }
 }
