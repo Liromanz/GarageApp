@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GarageApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,22 @@ namespace GarageApp.View
     /// </summary>
     public partial class UnitWindow : Window
     {
+        public Units untData { get; set; }
         public UnitWindow()
         {
             InitializeComponent();
+        }
+
+        private void SaveData(object sender, RoutedEventArgs e)
+        {
+            untData = new Units
+            {
+                Width = Convert.ToInt32(widthBox.Text),
+                Height = Convert.ToInt32(heightBox.Text),
+                Lenght = Convert.ToInt32(lenghtBox.Text)
+            };
+            DialogResult = true;
+            Close();
         }
     }
 }

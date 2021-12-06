@@ -12,15 +12,15 @@ namespace GarageApp.Model
         /// <summary>
         /// Ширина
         /// </summary>
-        public float Width { get; set; }
+        public double Width { get; set; }
         /// <summary>
         /// Длина
         /// </summary>
-        public float Lenght { get; set; }
+        public double Lenght { get; set; }
         /// <summary>
         /// Высота
         /// </summary>
-        public float Height { get; set; }
+        public double Height { get; set; }
         /// <summary>
         /// Пользователь
         /// </summary>

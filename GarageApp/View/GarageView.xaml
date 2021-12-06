@@ -18,8 +18,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            
-            <HelixToolkit:HelixViewport3D ZoomExtentsWhenLoaded="True" ChangeFieldOfViewCursor="ScrollNS" PanCursor="Hand" RotateCursor="SizeAll" ZoomCursor="SizeNS" ZoomRectangleCursor="ScrollSE">
+            <HelixToolkit:HelixViewport3D x:Name="helixViewPort" ZoomExtentsWhenLoaded="True" ChangeFieldOfViewCursor="ScrollNS" PanCursor="Hand" RotateCursor="SizeAll" ZoomCursor="SizeNS" ZoomRectangleCursor="ScrollSE" >
                 <HelixToolkit:SunLight/>
                 <HelixToolkit:GridLinesVisual3D x:Name="garagePlace" Width="100" Length="100" MinorDistance="5" MajorDistance="5" Thickness="0.1"/>
                 <HelixToolkit:BoxVisual3D Width="10" Height="40" Length="70" Fill="#FFD0D0D0">
@@ -30,8 +29,7 @@
                     </HelixToolkit:BoxVisual3D.Transform>
                 </HelixToolkit:BoxVisual3D>
             </HelixToolkit:HelixViewport3D>
-            
-            
+          
             <Button Content="Настроить гараж" Grid.Row="21" Background="#FFF74D44" Foreground="White" Click="ReturnToLogin"/>
         </Grid>
         <Grid Grid.Column="1">
@@ -47,9 +45,6 @@
             </StackPanel>
             <ListView Grid.Row="1"  x:Name="garageListVIew"/>
             <Button Content="Вернуться на авторизацию" Grid.Row="2" Background="#FFF74D44" Foreground="White" Click="ReturnToLogin" RenderTransformOrigin="0.5,0.5"/>
-
         </Grid>
-
-
     </Grid>
 </Window>
