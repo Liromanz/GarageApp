@@ -1,18 +1,7 @@
-﻿using GarageApp.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GarageApp.Data;
+using GarageApp.Model;
+using GarageApp.View;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GarageApp
 {
@@ -26,11 +15,23 @@ namespace GarageApp
             InitializeComponent();
         }
 
-        private void LoginManager(object sender, RoutedEventArgs e)
+        private async void LoginManager(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow = new GarageView();
-            Application.Current.MainWindow.Show();
-            Close();
+            var isValid = await DataSender.AuthRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
+            if (isValid)
+            {
+                Application.Current.MainWindow = new GarageView();
+                Application.Current.MainWindow.Show();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Вы ввели неверные данные");
+            }
+        }
+        private void RegistationManager(object sender, RoutedEventArgs e)
+        {
+            DataSender.PostRequest(nameof(Users), new Users { Password = passBox.Password, Login = loginBox.Text, Id = null });
         }
     }
 }

@@ -22,6 +22,13 @@
         <TextBox x:Name="loginBox" Grid.Row="2"/>
         <TextBlock Text="Пароль" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
         <PasswordBox x:Name="passBox" Grid.Row="4"/>
-        <Button Content="Войти" Grid.Row="5" Background="#FFF74D44" Foreground="White" Click="LoginManager" />
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Войти"  Background="#FFF74D44" Foreground="White" Click="LoginManager" />
+            <Button Content="Зарегистрироваться" Grid.Column="1"  Background="#FFF74D44" Foreground="White" Click="RegistationManager" />
+        </Grid>
     </Grid>
 </Window>

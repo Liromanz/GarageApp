@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GarageApp.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,32 @@ namespace GarageApp.Data
                 return null;
             }
         }
+
+        public static async Task<bool> AuthRequest(string tableName, object value)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var json = JsonConvert.SerializeObject(value);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync($"{url}/{tableName}/auth", stringContent);
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
         public static async Task<string> PostRequest(string tableName, object value)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                StringContent stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(value);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync($"{url}/{tableName}", stringContent);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStringAsync();
