@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +16,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+import android.content.SharedPreferences
+
+import android.app.Activity
+
+
+
+
 class SingIn : AppCompatActivity() {
 
     private  var login: TextView? = null
@@ -29,6 +37,8 @@ class SingIn : AppCompatActivity() {
     }
 
     fun Input(view: View) {
+
+
         var retrofit = Retrofit.Builder().baseUrl("https://wsrexampleapi.azurewebsites.net/api/")
             .addConverterFactory(GsonConverterFactory.create()).build()
         retrofit.create(API::class.java)
@@ -45,7 +55,8 @@ class SingIn : AppCompatActivity() {
                         {
                             val intent = Intent(this@SingIn,MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.putExtra("data", response.body()!!.get(i).id)
+                            intent.putExtra("id", response.body()!!.get(i).id)
+
                             startActivity(intent)
                             break
                         }

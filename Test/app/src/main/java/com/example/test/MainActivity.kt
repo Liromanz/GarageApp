@@ -1,5 +1,6 @@
 package com.example.test
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private  var contentUnit:TextView? = null
     private  var positionUnit:TextView? = null
 
+    private var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,6 +41,9 @@ class MainActivity : AppCompatActivity() {
         contentUnit = findViewById<TextView>(R.id.contentUnit)
         positionUnit = findViewById<TextView>(R.id.positionUnit)
 
+
+        id =  intent.getIntExtra("id",0);
+        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
     }
 
     fun UnitContent(view: View) {
@@ -107,6 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     fun History(view: View) {
         val intent = Intent(this,History::class.java)
+        intent.putExtra("id",id)
         startActivity(intent)
     }
 

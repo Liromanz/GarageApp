@@ -1,3 +1,8 @@
 package com.example.test.model
 
-data class history(var idUser:Int, var date_time: String)
+import com.google.gson.annotations.SerializedName
+
+data class history(
+    @SerializedName("id") var id:Int,
+    @SerializedName("idUser") var idUser:Int,
+    @SerializedName("datePass") var datePass: String)

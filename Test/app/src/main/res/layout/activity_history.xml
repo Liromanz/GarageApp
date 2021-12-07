@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".History">
 
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center" />
 </androidx.constraintlayout.widget.ConstraintLayout>
