@@ -5,96 +5,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".MainActivity">
 
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:text="Размеры гаража"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/NameY"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ширина"
-        app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:id="@+id/NameZ"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Длина"
-        app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:id="@+id/NameX"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Высота"
-        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:orientation="vertical">
+
         <Button
-            android:id="@+id/test"
-            android:onClick="UnitContent"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"
-            android:textSize="10sp"
-            android:text="Загрузить Описание Юнитов"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:layout_weight="1"
-            android:onClick="UnitPosition"
-            android:layout_marginStart="5dp"
-            android:layout_width="match_parent"
-            android:textSize="10sp"
-            android:text="Загрузить Размещение Юнитов"
-            android:layout_height="wrap_content"/>
+            android:onClick="History"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="История проходов" />
+
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="Данные Описание Юнитов"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Размеры гаража"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/NameY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ширина"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/NameZ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Длина"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/NameX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Высота"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/test"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/contentUnit"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:onClick="UnitContent"
+                android:text="Загрузить Описание Юнитов"
+                android:textSize="10sp" />
+
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:onClick="UnitPosition"
+                android:text="Загрузить Размещение Юнитов"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="Данные Размещение Юнитов"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/positionUnit"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Данные Описание Юнитов" />
+
+                <TextView
+                    android:id="@+id/contentUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Данные Размещение Юнитов" />
+
+                <TextView
+                    android:id="@+id/positionUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -13,23 +13,24 @@ import android.widget.TextView
 import java.lang.Exception
 import java.lang.StringBuilder
 import android.widget.EditText
-
-
-
+import com.example.test.`interface`.API
+import com.example.test.model.Users
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
 
     val LOG_TAG = "myLogs"
-
     val FILENAME = "file"
-
     val DIR_SD = "MyFiles"
     val FILENAME_SD = ""
 
     private  var contentUnit:TextView? = null
     private  var positionUnit:TextView? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun UnitContent(view: View) {
+
         var myFile = Intent(Intent.ACTION_GET_CONTENT)
         myFile.type = "*/*"
         val mimeTypes = arrayOf("text/plain")
@@ -81,7 +83,6 @@ class MainActivity : AppCompatActivity() {
 
         if(requestCode == 20)
         {
-
             try {
                 val inputStream = contentResolver.openInputStream(path)
                 val lines: MutableList<String?> = ArrayList()
@@ -102,6 +103,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun History(view: View) {
+        val intent = Intent(this,History::class.java)
+        startActivity(intent)
     }
 
 }
