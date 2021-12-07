@@ -14,11 +14,13 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <HelixToolkit:HelixViewport3D x:Name="helixViewPort" ZoomExtentsWhenLoaded="True" ChangeFieldOfViewCursor="ScrollNS" PanCursor="Hand" RotateCursor="SizeAll" ZoomCursor="SizeNS" ZoomRectangleCursor="ScrollSE" >
+            <Button Content="Посмотреть историю" Grid.Row="0" Background="#FFF74D44" Foreground="White" Click="ShowHistory"/>
+
+            <HelixToolkit:HelixViewport3D Grid.Row="1" x:Name="helixViewPort" ZoomExtentsWhenLoaded="True" ChangeFieldOfViewCursor="ScrollNS" PanCursor="Hand" RotateCursor="SizeAll" ZoomCursor="SizeNS" ZoomRectangleCursor="ScrollSE" >
                 <HelixToolkit:SunLight/>
                 <HelixToolkit:GridLinesVisual3D x:Name="garagePlace" Width="500" Length="300" MinorDistance="10" MajorDistance="10" Thickness="0.5">
                     <HelixToolkit:GridLinesVisual3D.Transform>
@@ -28,7 +30,7 @@
                     </HelixToolkit:GridLinesVisual3D.Transform>
                 </HelixToolkit:GridLinesVisual3D>
             </HelixToolkit:HelixViewport3D>
-            <Button Content="Настроить гараж" Grid.Row="21" Background="#FFF74D44" Foreground="White" Click="EditGarage"/>
+            <Button Content="Настроить гараж" Grid.Row="2" Background="#FFF74D44" Foreground="White" Click="EditGarage"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

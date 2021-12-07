@@ -220,5 +220,11 @@ namespace GarageApp.View
 
             return units;
         }
+
+        private void ShowHistory(object sender, RoutedEventArgs e)
+        {
+            HistoryView historyView = new HistoryView();
+            historyView.ShowDialog();
+        }
     }
 }
